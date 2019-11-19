@@ -1,0 +1,23 @@
+{
+  "name": "postmgn",
+  "version": "1.0.0",
+  "author": "Tin Mak <smallcampustin@gmail.com>",
+  "scripts": {
+    "ex": "babel-node app.js export",
+    "im": "babel-node app.js import"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "fs-extra": "^8.1.0",
+    "prompts": "^2.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.2",
+    "@babel/node": "^7.7.0",
+    "@babel/preset-env": "^7.7.1",
+    "axios-logger": "^2.2.1"
+  },
+  "bin": {
+    "postmgn": "./app.js"
+  }
+}
