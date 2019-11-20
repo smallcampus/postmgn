@@ -17,7 +17,7 @@ async function main() {
     const result = await prompts({
       type: 'text',
       name: 'value',
-      message: 'What is your API Key?',
+      message: 'What is your Postman API Key?',
     })
     const apiKey = result.value
     //Save config
