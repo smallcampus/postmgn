@@ -1,45 +1,48 @@
 {
-  "collection": {
-    "info": {
-      "_postman_id": "5caaa98b-b3da-4740-b89d-dcba50bef838",
-      "name": "Hello World",
-      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-    },
-    "item": [
-      {
-        "name": "Get Hong Kong Weather",
-        "request": {
-          "method": "GET",
-          "header": [],
-          "url": {
-            "raw": "https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=flw&lang={{lang}}",
-            "protocol": "https",
-            "host": [
-              "data",
-              "weather",
-              "gov",
-              "hk"
-            ],
-            "path": [
-              "weatherAPI",
-              "opendata",
-              "weather.php"
-            ],
-            "query": [
-              {
-                "key": "dataType",
-                "value": "flw"
-              },
-              {
-                "key": "lang",
-                "value": "{{lang}}"
-              }
-            ]
-          }
+    "collection": {
+        "info": {
+            "_postman_id": "d1fe8dd8-8ce7-4ff0-9883-08e4778133c9",
+            "name": "Hello World",
+            "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
         },
-        "response": []
-      }
-    ],
-    "protocolProfileBehavior": {}
-  }
+        "item": [
+            {
+                "name": "Get Hong Kong Weather",
+                "_postman_id": "b490ea26-9246-49ba-940b-68a64f09e32a",
+                "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                },
+                "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                        "raw": "https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=flw&lang={{lang}}",
+                        "protocol": "https",
+                        "host": [
+                            "data",
+                            "weather",
+                            "gov",
+                            "hk"
+                        ],
+                        "path": [
+                            "weatherAPI",
+                            "opendata",
+                            "weather.php"
+                        ],
+                        "query": [
+                            {
+                                "key": "dataType",
+                                "value": "flw"
+                            },
+                            {
+                                "key": "lang",
+                                "value": "{{lang}}"
+                            }
+                        ]
+                    }
+                },
+                "response": []
+            }
+        ]
+    }
 }
