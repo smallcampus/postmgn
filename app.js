@@ -3,19 +3,16 @@
 const Axios = require("axios");
 const fs = require("fs-extra");
 const prompts = require("prompts");
-const AxiosLogger = require('axios-logger')
 
 const apiUrl = 'https://api.getpostman.com'
-
 const configFileName = 'personal'
 const envPath = './environments/'
 const collectionPath = './collections/'
 
 async function main() {
-  let personal = {}
-  try {
-    personal = require(`./${configFileName}`)
-  } catch (err) {
+  const action = process.argv[2]
+
+  if (action === 'init') {
     //Prompt to input apiKey
     const result = await prompts({
       type: 'text',
@@ -23,10 +20,30 @@ async function main() {
       message: 'What is your API Key?',
     })
     const apiKey = result.value
-    personal.apiKey = apiKey
     //Save config
     await fs.writeJson(`./${configFileName}.json`, {apiKey})
     console.info(`${configFileName}.json created`)
+
+    if (!await fs.exists(collectionPath)) {
+      await fs.mkdirs(collectionPath)
+      await fs.writeFile(`${collectionPath}README.md`, "Put your collection json in this folder, and then `postmgn import`")
+    }
+    if (!await fs.exists(envPath)) {
+      await fs.mkdirs(envPath)
+      //Create readme for env
+      await fs.writeFile(`${envPath}README.md`, "Put your environment json in this folder, and then `postmgn import`")
+    }
+
+    console.info("You can now put your json into collections/ and environments/ and then `postmgn import`")
+
+    return
+  }
+
+  let personal = {}
+  try {
+    personal = await fs.readJson(`./${configFileName}.json`)
+  } catch (err) {
+    throw new Error('Please `postmgn init` the project')
   }
 
   const axios = Axios.create({
@@ -35,9 +52,7 @@ async function main() {
       "X-Api-Key": personal.apiKey
     }
   })
-  axios.interceptors.response.use(AxiosLogger.responseLogger, AxiosLogger.errorLogger)
 
-  const action = process.argv[2]
   if (action === 'export') {
     if (!personal.collections) {
       throw new Error("You have to run import first")
@@ -76,8 +91,8 @@ async function main() {
       let files = await fs.readdir(basePath)
       files = files.filter(name => name.endsWith('.json'))
 
-      console.log('files=', files)
-      console.log('mapping=', mapping)
+      console.info('files=', files)
+      console.info('mapping=', mapping)
 
       const revMapping = Object.entries(mapping).reduce((a, b) => {
         a[b[1]] = b[0]
@@ -126,9 +141,9 @@ async function main() {
     await readFilesAndSubmit(envPath, personal.environments, 'environment', '/environments', remoteEnvironments.data.environments, (json) => json.environment.id)
 
     await fs.writeFile(`./${configFileName}.json`, JSON.stringify(personal, null, 4))
-    console.log('Updated personal.json')
+    console.log(`Updated ${configFileName}.json`)
   } else {
-    console.info('usage: postmgn [import | export]')
+    console.info('usage: postmgn [import | export | init]')
   }
 }
 
