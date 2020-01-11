@@ -1,6 +1,6 @@
 {
   "name": "postmgn",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": "Tin Mak <smallcampustin@gmail.com>",
   "scripts": {
     "ex": "babel-node main.js export",

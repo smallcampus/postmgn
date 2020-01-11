@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import {App} from "./app"
+const {App} = "./app"
 
 const app = new App();
 app.init()
