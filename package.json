@@ -3,8 +3,8 @@
   "version": "2.0.0",
   "author": "Tin Mak <smallcampustin@gmail.com>",
   "scripts": {
-    "ex": "babel-node app.js export",
-    "im": "babel-node app.js import"
+    "ex": "babel-node main.js export",
+    "im": "babel-node main.js import"
   },
   "dependencies": {
     "axios": "^0.19.0",
@@ -19,6 +19,6 @@
     "@babel/preset-env": "^7.7.1"
   },
   "bin": {
-    "postmgn": "./app.js"
+    "postmgn": "./main.js"
   }
 }

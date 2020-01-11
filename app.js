@@ -304,11 +304,3 @@ export class App {
     return chosenEnvironments
   }
 }
-
-(async () => {
-  const app = new App()
-  app.init()
-    .catch((e) => {
-      console.error(e.message, e)
-    })
-})()
