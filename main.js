@@ -1,6 +1,6 @@
-#!/usr/bin/env node
+#!/usr/bin/env babel-node
 
-const {App} = "./app"
+import {App} from "./app"
 
 const app = new App();
 app.init()
