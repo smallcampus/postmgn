@@ -20,5 +20,9 @@
   },
   "bin": {
     "postmgn": "lib/main.js"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/smallcampus/postmgn.git"
   }
 }

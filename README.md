@@ -70,3 +70,13 @@ For now you could manually delete the `postmgn.config` file and run `postmgn` ag
  + API expired or invalid
  
  The api key is saved in postmgn.private.config, you can manually edit that.
+ 
+ + Collection not updated?
+ 
+ This tool work on both your personal workspace and team workspace. I suggest you to 
+ copy the collection into your own workspace before using this tool, because team 
+ workspace has a lot of limitation.
+ 
+ + the collection ID keeps changing when my teammates export
+ 
+ Future release will fix that
