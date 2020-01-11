@@ -61,8 +61,12 @@ $ postmgn import
 
 Your postman will update immediately if you are online.
 
-### Future release
- + Add more collections and environments after init
- 
+### Troubleshot
+
+ + Add more collections and environments after init 
+
 For now you could manually delete the `postmgn.config` file and run `postmgn` again.
 
+ + API expired or invalid
+ 
+ The api key is saved in postmgn.private.config, you can manually edit that.
