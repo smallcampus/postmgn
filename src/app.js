@@ -99,8 +99,8 @@ export class App {
 
   async migrateLegacyConfig() {
     this.config.personal = this.config.legacy
-    const collections = Object.keys(this.config.personal.collections || {})
-    const environments = Object.keys(this.config.personal.environments || {})
+    const collections = Object.values(this.config.personal.collections || {})
+    const environments = Object.values(this.config.personal.environments || {})
 
     this.config.public = {
       collections,
