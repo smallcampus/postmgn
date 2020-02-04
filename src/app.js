@@ -148,7 +148,23 @@ export class App {
     const environmentPath = this.config.public.environmentPath || 'environments'
     const fileModule = new FileModule(collectionPath, environmentPath)
 
-    if (!(await this.promptConfirmImport(remoteCollections, remoteEnvironments))) {
+    const actions = {}
+    for (const name of remoteCollections) {
+      if (collectionMap[name]) {
+        actions[name] = 'Update'
+      } else {
+        actions[name] = 'Create'
+      }
+    }
+    for (const name of remoteEnvironments) {
+      if (environmentMap[name]) {
+        actions[name] = 'Update'
+      } else {
+        actions[name] = 'Create'
+      }
+    }
+
+    if (!(await this.promptConfirmImport(actions))) {
       console.info('Import aborted')
       return
     }
@@ -162,8 +178,8 @@ export class App {
   }
 
   async _doImport(fileModule, type, typeS, remotes, locals) {
-    for (let i = 0; i < remotes.length; i++) {
-      const name = remotes[i]
+    const list = [...remotes]
+    for (const name of list) {
       console.debug('Importing', type, name)
       const uid = locals[name]
       const json = await fileModule.read(fileModule.type(type), name)
@@ -239,11 +255,10 @@ export class App {
     return (confirm || 'y').toLowerCase() === 'y'
   }
 
-  async promptConfirmImport(collections, environments) {
-    const message = 'You are going to import the follow resources:\n' +
-      collections.map(c=>`Collection: ${c}\n`) +
-      environments.map(e=>`Environment: ${e}\n`) +
-      'This will overwrite your postman collections, are you sure? [y/N]'
+  async promptConfirmImport(actions) {
+    const message = 'This will perform the following actions:\n' +
+      Object.keys(actions).map(name => `${actions[name]} ${name}\n`).join('') +
+      'Are you sure to proceed? [y/N]'
     const {confirm} = await prompt({
       type: 'input',
       name: 'confirm',

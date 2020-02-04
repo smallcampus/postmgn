@@ -1,6 +1,6 @@
 {
   "name": "postmgn",
-  "version": "2.0.11",
+  "version": "2.0.12",
   "author": "Tin Mak <smallcampustin@gmail.com>",
   "scripts": {
     "prepublish": "babel src --out-dir lib"
@@ -22,7 +22,7 @@
     "postmgn": "lib/main.js"
   },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/smallcampus/postmgn.git"
+    "type": "git",
+    "url": "https://github.com/smallcampus/postmgn.git"
   }
 }
