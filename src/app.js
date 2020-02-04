@@ -139,11 +139,6 @@ export class App {
   }
 
   async doImport() {
-    if (!(await this.promptConfirmImport())) {
-      console.info('Import aborted')
-      return
-    }
-
     const remoteCollections = this.config.public.collections || []
     const collectionMap = this.config.personal.collections || {}
     const remoteEnvironments = this.config.public.environments || []
@@ -152,6 +147,11 @@ export class App {
     const collectionPath = this.config.public.collectionPath || 'collections'
     const environmentPath = this.config.public.environmentPath || 'environments'
     const fileModule = new FileModule(collectionPath, environmentPath)
+
+    if (!(await this.promptConfirmImport(remoteCollections, remoteEnvironments))) {
+      console.info('Import aborted')
+      return
+    }
 
     await this._doImport(fileModule, 'collection', 'collections', remoteCollections, collectionMap)
     await this._doImport(fileModule, 'environment', 'environments', remoteEnvironments, environmentMap)
@@ -162,7 +162,8 @@ export class App {
   }
 
   async _doImport(fileModule, type, typeS, remotes, locals) {
-    for (const name of remotes) {
+    for (let i = 0; i < remotes.length; i++) {
+      const name = remotes[i]
       console.debug('Importing', type, name)
       const uid = locals[name]
       const json = await fileModule.read(fileModule.type(type), name)
@@ -238,11 +239,15 @@ export class App {
     return (confirm || 'y').toLowerCase() === 'y'
   }
 
-  async promptConfirmImport() {
+  async promptConfirmImport(collections, environments) {
+    const message = 'You are going to import the follow resources:\n' +
+      collections.map(c=>`Collection: ${c}\n`) +
+      environments.map(e=>`Environment: ${e}\n`) +
+      'This will overwrite your postman collections, are you sure? [y/N]'
     const {confirm} = await prompt({
       type: 'input',
       name: 'confirm',
-      message: 'This will overwrite your postman collection, are you sure? [y/N]'
+      message: message
     })
     return (confirm || 'n').toLowerCase() === 'y'
   }

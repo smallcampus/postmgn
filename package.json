@@ -1,6 +1,6 @@
 {
   "name": "postmgn",
-  "version": "2.0.10",
+  "version": "2.0.11",
   "author": "Tin Mak <smallcampustin@gmail.com>",
   "scripts": {
     "prepublish": "babel src --out-dir lib"
