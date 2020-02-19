@@ -49,7 +49,9 @@ export class Config {
 
   addObject(type, name, uid) {
     this.public[type] = this.public[type] || []
-    this.public[type].push(name)
+    if(!this.public[type].includes(name)) {
+      this.public[type].push(name)
+    }
 
     this.personal[type] = this.personal[type] || {}
     this.personal[type][name] = uid
