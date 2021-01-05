@@ -6,7 +6,7 @@
     "prepublish": "babel src --out-dir lib"
   },
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "fs-extra": "^8.1.0",
     "inquirer": "^7.0.3",
     "mkdir-recursive": "^0.4.0",
